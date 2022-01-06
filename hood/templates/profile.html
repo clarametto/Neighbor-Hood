@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{% load bootstrap4 %}
+{% load static%}
+{% block content%}
+<div class="prof">
+    <div class="container">
+        <div class="row profile">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div style="font-size: 80px;">
+                </div>
+            </div>
+            <div class="profile-details justify-content-center">
+                {% for profile in profiles %}
+                <div class="m-2 p-3 text-center display">
+                    <img class="prof-picture" src="{{profile.profile_picture.url}}" alt="">
+                    <p class="mt-2"> <span class="text-white"> Name:</span> {{profile.first_name}}   {{profile.last_name}}</p>
+                    <p class="mt-2"> <span class="text-white"> Bio:</span> {{profile.bio}}</p>
+                    <p class="mt-2"><span class="text-white"> Location:</span> {{profile.location}}</p>
+                </div>
+                
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+{% endblock %}

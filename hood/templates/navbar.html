@@ -1,0 +1,35 @@
+{% for prof in profiles %}
+  {% if user.is_authenticated %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="/">Neighborhood</a>
+  <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo03">
+    <form class="form-inline justify-content-center">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+  <ul class="nav justify-content-end">
+   
+    <li class="nav-item">
+      <a class="nav-link" href="#"><i class="fa fa-briefcase fa-lg" aria-hidden="true"></i></a>
+    </li>
+    <li class="nav-item">
+      <a class="" href="{% url 'profile' pk=user.id%}"><img src="{{ prof.profile_picture.url }}" alt="" class="profile-img"> </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'logout'%}">Logout</a>
+    </li>
+    {% else %}
+      <li>
+        <a class='btn btn-default' href="/accounts/login">Login</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endfor %}
+
+
+
