@@ -1,4 +1,3 @@
-{% for prof in profiles %}
   {% if user.is_authenticated %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,9 +15,15 @@
     <li class="nav-item">
       <a class="nav-link" href="#"><i class="fa fa-briefcase fa-lg" aria-hidden="true"></i></a>
     </li>
+
+    {% for prof in profiles %}
+
     <li class="nav-item">
-      <a class="" href="{% url 'profile' pk=user.id%}"><img src="{{ prof.profile_picture.url }}" alt="" class="profile-img"> </a>
+      <a class="" href="{% url 'profile'%}"><img src="{{ prof.profile_picture.url }}" alt="" class="profile-img"> </a>
     </li>
+
+    {% endfor %}
+
     <li class="nav-item">
       <a class="nav-link" href="{% url 'logout'%}">Logout</a>
     </li>
@@ -29,7 +34,6 @@
     {% endif %}
   </ul>
 </nav>
-{% endfor %}
 
 
 
