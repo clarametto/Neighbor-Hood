@@ -13,3 +13,8 @@ class UpdateProfileForm(ModelForm):
     class Meta:
         model = Profile
         exclude = ['user','email', 'contact']
+
+class CreateHoodForm(forms.ModelForm):
+    class Meta:
+        model=NeighbourHood
+        fields = ['hood_image','name','hood_description','location']
