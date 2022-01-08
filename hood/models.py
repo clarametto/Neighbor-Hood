@@ -3,6 +3,8 @@ from cloudinary.models import CloudinaryField
 import datetime as dt
 from django.contrib.auth.models import User
 from django.db.models.fields import related
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create models here.
 # location model
@@ -17,10 +19,12 @@ class Location(models.Model):
         return self.name
 
 class NeighbourHood(models.Model):
+    hood_image = CloudinaryField("hood_image", null=True)
     name = models.CharField(max_length=50)
+    hood_description = models.TextField(max_length=1000, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     occupants_count = models.IntegerField(default=0)
-    admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    admin = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def create_neighborhood(self):
@@ -36,7 +40,6 @@ class NeighbourHood(models.Model):
         hood = cls.objects.filter(name__icontains=search_term)
         return hood
 
-    # find neighbourhood by id
     
     @classmethod
     def find_neigborhood(cls, id):
@@ -45,37 +48,6 @@ class NeighbourHood(models.Model):
     def __str__(self):
         return self.name
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    profile_picture = CloudinaryField('image')
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
-    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, null=True)
-    bio = models.TextField(max_length=500,  null=True)
-    email = models.EmailField(null=True)
-    contact = models.CharField(max_length=50, blank=True, null=True)
 
 
-    def update(self):
-        self.save()
-
-    def save_profile(self):
-        self.save()
-
-    def delete_profile(self):
-        self.delete()
-
-    def create_profile(self):
-        self.save()
-
-    def update_profile(self):
-        self.update()
-
-    @classmethod
-    def get_profile_by_user(cls, user):
-        profile = cls.objects.filter(user=user)
-        return profile
-
-    def __str__(self):
-        return self.user.username
+ 
