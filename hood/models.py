@@ -71,4 +71,3 @@ class Profile(models.Model):
         instance.profile.save()
 
 
- 
