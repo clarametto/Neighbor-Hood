@@ -7,14 +7,21 @@ from .models import *
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        exclude = ['user','email']
+        exclude = ['user','email', 'neighbourhood',]
 
 class UpdateProfileForm(ModelForm):
     class Meta:
         model = Profile
-        exclude = ['user','email', 'contact']
+        exclude = ['user', 'neighbourhood']
 
 class CreateHoodForm(forms.ModelForm):
     class Meta:
         model=NeighbourHood
         fields = ['hood_image','name','hood_description','location']
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model=Post
+        fields = ['title','post_image','post_description','hood',]
+
