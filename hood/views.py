@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from hood.forms import *
@@ -9,6 +9,8 @@ from django.http.response import Http404, HttpResponseRedirect
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from django.core.exceptions import ObjectDoesNotExist
+
 
 # views here.
 def index(request):
@@ -72,13 +74,62 @@ def create_hood(request):
 def hoods(request):
     current_user = request.user
     hood = NeighbourHood.objects.all().order_by('-id')
-
-    context ={'hood':hood}
+    profiles = Profile.objects.filter(user_id = current_user.id).all()
+    context ={'hood':hood, 'profiles':profiles,}
     return render(request, 'hood/hood.html', context)
 
 
 @login_required(login_url="/accounts/login/")
 def single_hood(request,name):
     hood = NeighbourHood.objects.get(name=name)
-    ctx = {"hood":hood}
+    post = Post.objects.filter(hood=hood)
+    businesses= Business.objects.filter(neighbourhood=hood)
+
+    ctx = {"hood":hood, "post":post, 'businesses':businesses}
     return render(request, 'hood/single_hood.html', ctx)
+
+def join_hood(request, name):
+    neighbourhood = get_object_or_404(NeighbourHood, name=name)
+    request.user.profile.neighbourhood = neighbourhood
+    request.user.profile.save()
+    return redirect('hood')
+def leave_hood(request, id):
+    hood = get_object_or_404(NeighbourHood, id=id)
+    request.user.profile.neighbourhood = None
+    request.user.profile.save()
+    return redirect('hood')
+
+@login_required(login_url="/accounts/login/")
+def create_post(request):
+    current_user = request.user
+    if request.method == 'POST':
+        post_form = PostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.user = current_user
+            post.save()
+        return HttpResponseRedirect('hood')
+    else:
+        post_form = PostForm()
+    context = {'post_form':post_form}
+    return render(request, 'create_post.html',context)
+
+@login_required(login_url="/accounts/login/")
+def create_business(request):
+    current_user = request.user
+    if request.method == "POST":
+        form=BusinessForm(request.POST,request.FILES)
+        if form.is_valid():
+            business=form.save(commit=False)
+            business.user=current_user
+            business.hood = hoods
+            business.save()
+        return HttpResponseRedirect('/businesses')
+    else:
+        form=BusinessForm()
+    return render (request,'create_business.html', {'form': form, 'profile': profile})
+    
+
+
+
+
