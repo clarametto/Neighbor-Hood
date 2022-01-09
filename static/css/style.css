@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Petemoss&display=swap');
+
 *{
   margin: 0;
   padding: 0;
@@ -43,5 +45,27 @@ min-height: 100vh;
     object-fit: cover;
     border-radius: 50%;
   }
-  
+ .post-img{
+   height: 300px;
+   width:100%;
+   object-fit: cover;
+   border-radius: 4px;
+ }
+ .landing{
+  background-repeat: no-repeat; 
+  background-image: url("./williams.jpeg");
+  height: 80vh;
+  width: 100%;
+  background-size:cover ;
+  background-position: center
+
+  } 
+.landing h1{
+font-family: 'Pacifico', cursive;
+color:green;
+text-align: center;
+padding-top:8rem;
+font-weight: 200;
+font-size:70px;
+}
   
