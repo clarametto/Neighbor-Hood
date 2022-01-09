@@ -86,7 +86,34 @@ class Post(models.Model):
         self.save()
     def update_post(self):
         self.update()
-
+class Business(models.Model):
+    business_photo = CloudinaryField("image",null=True)
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    description = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE,null=True)
+    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE,null=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    class Meta:
+        ordering = ['-pk']
+    def __str__(self):
+        return f'{self.name} Business'
+    def create_business(self):
+        self.save()
+    def delete_business(self):
+        self.delete()
+    def update_business(self):
+        self.update()
+    @classmethod
+    def search_by_name(cls, search_term):
+        business = cls.objects.filter(name__icontains=search_term)
+        return business
+    @classmethod
+    def find_business(cls, id):
+        business = cls.objects.get(id=id)
+        return business
 
 
 
