@@ -39,8 +39,6 @@ class NeighbourHood(models.Model):
     def search_by_name(cls, search_term):
         hood = cls.objects.filter(name__icontains=search_term)
         return hood
-
-    # find neighbourhood by id
     
     @classmethod
     def find_neigborhood(cls, id):
@@ -69,5 +67,27 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
+
+class Post(models.Model):
+    user = models.ForeignKey(User,on_delete = models.CASCADE, null=True)
+    title = models.CharField(max_length=100)
+    post_image = CloudinaryField('post_image', null=True)
+    post_description = models.TextField(max_length=1000)
+    hood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE, null=True, related_name='hood_post')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    class Meta:
+        ordering = ['-pk']
+    def __str__(self):
+        return f'{self.title} Post'
+    def delete_post(self):
+        self.delete()
+    def create_post(self):
+        self.save()
+    def update_post(self):
+        self.update()
+
+
+
 
 
