@@ -14,5 +14,6 @@ urlpatterns=[
     path('<str:name>/hood',views.single_hood,name='single_hood'),
     path('create_post',views.create_post, name= 'create_post'),
     path('create_business',views.create_business, name= 'create_business'),
+    path('businesses',views.businesses, name= 'businesses'),
 ]
 
