@@ -83,7 +83,7 @@ def hoods(request):
 def single_hood(request,name):
     hood = NeighbourHood.objects.get(name=name)
     post = Post.objects.filter(hood=hood)
-    businesses= Business.objects.filter(neighbourhood=hood)
+    businesses= Business.objects.filter(neighborhood=hood)
 
     ctx = {"hood":hood, "post":post, 'businesses':businesses}
     return render(request, 'hood/single_hood.html', ctx)
@@ -128,6 +128,23 @@ def create_business(request):
     else:
         form=BusinessForm()
     return render (request,'create_business.html', {'form': form, 'profile': profile})
+
+@login_required(login_url="/accounts/login/")
+def businesses(request):
+    current_user = request.user
+    profile = Profile.objects.filter(user_id=current_user.id).first()
+    businesses = Business.objects.filter(user_id=current_user.id)
+    if profile is None:
+        profile = Profile.objects.filter(
+            user_id=current_user.id).first()
+        businesses = Business.objects.filter(user_id=current_user.id)
+        locations = Location.objects.all()
+        neighborhood = NeighbourHood.objects.all()
+        return render(request, "profile.html", {"danger": "Update Profile", "locations": locations, "neighborhood": neighborhood, "businesses": businesses})
+    else:
+        neighborhood = profile.neighbourhood
+        businesses = Business.objects.filter(user_id=current_user.id)
+        return render(request, "business.html", {"businesses": businesses})
     
 
 
