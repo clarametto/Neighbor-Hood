@@ -9,6 +9,10 @@ This is a web application where users can set profile about them and their locat
 ## Screenshots
 ###### Screenshot 1
 
+<img src="static/images/Neighbor.png">
+
+
+
 ## User Story
 * View different projects from the Application
 * Click a single project to expand it and view the details of that post
