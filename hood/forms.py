@@ -9,10 +9,7 @@ class ProfileForm(ModelForm):
         model = Profile
         exclude = ['user','email', 'neighbourhood',]
 
-class UpdateProfileForm(ModelForm):
-    class Meta:
-        model = Profile
-        exclude = ['user', 'neighbourhood']
+
 
 class CreateHoodForm(forms.ModelForm):
     class Meta:
@@ -28,4 +25,5 @@ class PostForm(forms.ModelForm):
 class BusinessForm(forms.ModelForm):
     class Meta:
         model=Business
-        fields = ['name','business_photo','description','neighbourhood']
+        fields = ['name','business_photo','description','neighborhood']
+        
