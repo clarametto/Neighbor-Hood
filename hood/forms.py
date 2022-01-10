@@ -28,5 +28,5 @@ class PostForm(forms.ModelForm):
 class BusinessForm(forms.ModelForm):
     class Meta:
         model=Business
-        fields = ['name','business_photo','description','neighborhood']
+        fields = ['name','business_photo','description','location', 'neighborhood']
         
