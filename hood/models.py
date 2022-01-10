@@ -93,7 +93,7 @@ class Business(models.Model):
     description = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE,null=True)
-    neighbourhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE,null=True)
+    neighborhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE,null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     class Meta:
