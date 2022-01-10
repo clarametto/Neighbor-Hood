@@ -114,6 +114,13 @@ def create_post(request):
     context = {'post_form':post_form}
     return render(request, 'create_post.html',context)
 
+
+def hood_members(request, hood_id):
+    hood = NeighbourHood.objects.get(id=hood_id)
+    members = Profile.objects.filter(neighbourhood=hood)
+    return render(request, 'members.html', {'members': members})
+    
+
 @login_required(login_url="/accounts/login/")
 def create_business(request):
     current_user = request.user
@@ -128,29 +135,31 @@ def create_business(request):
     else:
         form=BusinessForm()
     return render (request,'create_business.html', {'form': form, 'profile': profile})
-
 @login_required(login_url="/accounts/login/")
 def businesses(request):
     current_user = request.user
     profile = Profile.objects.filter(user_id=current_user.id).first()
-    businesses = Business.objects.filter(user_id=current_user.id)
+    businesses = Business.objects.all().order_by('-id')
     if profile is None:
         profile = Profile.objects.filter(
             user_id=current_user.id).first()
-        businesses = Business.objects.filter(user_id=current_user.id)
+        businesses = Business.objects.all().order_by('-id')
         locations = Location.objects.all()
         neighborhood = NeighbourHood.objects.all()
         return render(request, "profile.html", {"danger": "Update Profile", "locations": locations, "neighborhood": neighborhood, "businesses": businesses})
     else:
         neighborhood = profile.neighbourhood
-        businesses = Business.objects.filter(user_id=current_user.id)
+        businesses = Business.objects.all().order_by('-id')
         return render(request, "business.html", {"businesses": businesses})
-def hood_members(request, hood_id):
-    hood = Neighborhood.objects.get(id=hood_id)
-    members = Profile.objects.filter(neighbourhood=hood)
-    return render(request, 'members.html', {'members': members})
-    
-
-
+@login_required(login_url="/accounts/login/")
+def search_business(request):
+    if 'search_term' in request.GET and request.GET["search_term"]:
+        search_term = request.GET.get("search_term")
+        searched_businesses = Business.objects.filter(name__icontains=search_term)
+        message = f"Search For: {search_term}"
+        return render(request, "search.html", {"message": message, "businesses": searched_businesses})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, "search.html", {"message": message})
 
 

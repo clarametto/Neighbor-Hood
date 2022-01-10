@@ -1,0 +1,43 @@
+<style>
+    .hood-picture{
+        width: 350px;
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+{% extends 'base.html'%}
+{% block content %}
+{{block.super}}
+  <div class="container-full hood">
+    <div class="container  ">
+        <div class="row mt-4" id="">
+            {% for items in hood %}
+            <div class="col-md-12 col-md-6 col-lg-4" id="main" style="gap: 15px;">
+                <div class="card mb-4" id="">
+                    <div data-toggle="modal" data-target="#showPicModal{{posts.id}}">
+                        <img src="{{items.hood_image.url}}" alt="" class="hood-picture">
+                    </div>
+                    <div class="card-body ">
+                        <p class="name text-center">{{items.name}}</p>
+                        <div class="justify-content-between location-date">
+
+                            <div class="post-content">
+                                <p class="text-uppercase badge rounded-pill bg-warning text-dark text-capitalize">{{ posts.created_at|date}}</p>
+                                {{ items.location }}
+                                <p class="text-uppercase badge rounded-pill bg-info text-white text-capitalize">{{ posts.category }}</p>
+                                {% if request.user.profile.neighbourhood == items %}
+                                <a href="{% url 'leave-hood' items.id %}" class="btn btn-outline-danger btn-sm">Leave Hood</a>
+                                <a href="{% url 'single_hood' items.name %}" class="btn btn-outline-success btn-sm">Enter Hood</a>
+                                {% elif not request.user.profile.neighbourhood %}
+                                <a href="{% url 'join-hood' items.name %}" class="btn btn-primary btn-sm">Join Hood</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+{% endblock %}

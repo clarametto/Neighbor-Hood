@@ -125,7 +125,24 @@ color: white;
   color: white;
 
 }
+.invite{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top:8rem;
+}
+.submit{
+  padding:10px 15px;
+  background:white;
+  color: black;
+  border-radius:3px;
 
+}
+.submit:hover{
+  text-decoration:none;
+  color: black;
+  background: #ddb892;
+}
 
 
   
