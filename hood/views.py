@@ -145,6 +145,10 @@ def businesses(request):
         neighborhood = profile.neighbourhood
         businesses = Business.objects.filter(user_id=current_user.id)
         return render(request, "business.html", {"businesses": businesses})
+def hood_members(request, hood_id):
+    hood = Neighborhood.objects.get(id=hood_id)
+    members = Profile.objects.filter(neighbourhood=hood)
+    return render(request, 'members.html', {'members': members})
     
 
 
