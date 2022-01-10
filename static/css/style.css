@@ -7,7 +7,8 @@
 
 }
 .prof{
-  background: #161623;
+  background:rgb(233, 231, 231);
+  color: black;
 
 min-height: 100vh;
 }
@@ -68,4 +69,51 @@ padding-top:8rem;
 font-weight: 200;
 font-size:70px;
 }
+.navigation{
+background-color:#ddb892;
+
+}
+.links{
+  font-weight:bold;
+  color:black ;
+
+
+}
+.links:hover{
+color: white;  
+
+}
+
+.logo{
+  font: bold;
+  font-family: 'Pacifico', cursive;
+  color:green;
+
+}
+.logo:hover{
+  color: white;
+}
+
+.photos {
+  padding: 10px 15px;
+  border: none;
+  background-color:#ddb892;
+  color:black;
+  border-radius: 5px;
+}
+.photos:hover{
+  text-decoration: none;
+  color:white;
+  margin-top: 7rem;
+}
+.button a{
+  margin-bottom: 1rem;
+
+}
+.hood{
+  background:rgb(233, 231, 231);
+
+}
+
+
   
