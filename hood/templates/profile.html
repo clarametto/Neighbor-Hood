@@ -5,6 +5,7 @@
 
 <div class="prof">
     <div class="container container-full">          
+         <div class="row">
             <div class="profile-details col-md-6">
                 <div class="display text-center">
                     {% if profile.profile_picture %}
@@ -14,36 +15,42 @@
                         class="card-img-top" alt="My profile picture">
                     {% endif %}
                     <hr>
-                    <h6 class="text-white"><span>Name :</span>  {{profile.first_name}}   <span> . </span> {{profile.last_name}}</h6>
+                    <h6 class="text-dark"><span>Name :</span>  {{profile.first_name}}<span> . </span> {{profile.last_name}}</h6>
                     <hr>
-                    <h6 class="text-white"><span>Username:</span>  {{ user.username }}</h6>
+                    <h6 class="text-dark"><span>Username:</span>  {{ user.username }}</h6>
                     <hr>
-                    <h6 class="text-white"><span>Bio:</span>
+                    <h6 class="text-dark"><span>Bio:</span>
                         {% if profile.bio %}
                         <small>{{ profile.bio }}</small>
                         {% endif %}
                     </h6>
                     <hr>
-                    <h6 class="text-white"><span><i class="fa fa-map-marker fa-lg" aria-hidden="true" ></i></span>{{profile.location}}</h6>
+                    <h6 class="text-dark"><span><i class="fa fa-map-marker fa-lg" aria-hidden="true" ></i></span>{{profile.location}}</h6>
     
-                    <h6 class="text-white">Joined on: <span class="badge rounded-pill bg-secondary text-white">
+                    <h6 class="text-dark">Joined on: <span class="badge rounded-pill bg-secondary text-white">
                         {{ user.date_joined|date }} </span></h6>
                 </div>
                
             </div>
 
-            <div class="col-md-6">
-                {% if request.user is user %}
-                <div class="">
-                  <a href="{%url 'update_profile' user.id %}" class="phots"><i class="fa fa-plus "></i>
-                    Edit Profile
-                  </a>
+            <div class="col-md-6 mt-5">
+                <div class="row">
+                    {% if request.user is user %}
+                    <div class="col-md-6">
+                      <a href="{%url 'update_profile' user.id %}" class="photos"><i class="fa fa-plus "></i>
+                        Edit Profile
+                      </a>
+                    </div>
+                    {% endif %}
+                        <div class="col-md-6">
+                            <a href="{%url 'create_hood' %}" class="photos"><i class="fa fa-plus "></i>
+                                Create Hood
+                               </a>
+                        </div>
                 </div>
-                {% endif %}
+
             </div>
-            <a href="{%url 'create_hood'  %}" class="phots"><i class="fa fa-plus "></i>
-                Create Hood
-               </a>
+         </div>
            
         </div>
       
