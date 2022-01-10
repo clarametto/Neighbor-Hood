@@ -9,7 +9,10 @@ class ProfileForm(ModelForm):
         model = Profile
         exclude = ['user','email', 'neighbourhood',]
 
-
+class UpdateProfileForm(ModelForm):
+    class Meta:
+        model = Profile
+        exclude = ['user', 'neighbourhood']
 
 class CreateHoodForm(forms.ModelForm):
     class Meta:
