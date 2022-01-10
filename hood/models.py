@@ -7,11 +7,11 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 
 # Create models here.
-# location model
 class Location(models.Model):
     name = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
     # save location
     def save_location(self):
         self.save()
@@ -86,6 +86,7 @@ class Post(models.Model):
         self.save()
     def update_post(self):
         self.update()
+
 class Business(models.Model):
     business_photo = CloudinaryField("image",null=True)
     name = models.CharField(max_length=50)
@@ -96,6 +97,7 @@ class Business(models.Model):
     neighborhood = models.ForeignKey(NeighbourHood, on_delete=models.CASCADE,null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
+
     class Meta:
         ordering = ['-pk']
     def __str__(self):
@@ -114,6 +116,7 @@ class Business(models.Model):
     def find_business(cls, id):
         business = cls.objects.get(id=id)
         return business
+
 
 
 
