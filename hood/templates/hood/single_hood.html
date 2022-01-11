@@ -1,5 +1,4 @@
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Cookie&family=Luckiest+Guy&family=Marck+Script&family=Playball&family=Staatliches&display=swap');
     .hood-pic{
       width: 100%;
       height: 60vh;
@@ -16,19 +15,29 @@
     }
     .single-name{
       font-size: 60px;
-      color: coral;
-      font-family: 'Luckiest Guy', cursive;
-    }
+      font-family: 'Pacifico', cursive;
+      color:green;    }
     .description{
       font-size: 20px;
     }
+    .posts {
+  padding: 10px 15px;
+  border: none;
+  background-color:#ddb892;
+  color:black;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+.posts:hover{
+  text-decoration: none;
+  color: #fff;
+}
   </style>
   {% extends 'base.html'%}
   {% block content %}
   {{block.super}}
   <div class="container-full">
         <div class="hoods" style="background-size: cover; background-repeat: no-repeat; background-image: url({{hood.hood_image.url}})">
-          <!-- <img src="{{hood.hood_image.url}}" alt="" class="hood-pic" > -->
           <div class="single-hood">
             <p class="single-name">{{hood.name}}</p>
             <p class="description">{{hood.hood_description}}</p>
