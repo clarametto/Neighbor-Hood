@@ -162,4 +162,9 @@ def search_business(request):
         message = "You haven't searched for any term"
         return render(request, "search.html", {"message": message})
 
+def hood_members(request, hood_id):
+    hood = NeighbourHood.objects.get(id=hood_id)
+    members = Profile.objects.filter(neighbourhood=hood)
+    return render(request, 'members.html', {'members': members})
+
 

@@ -24,6 +24,7 @@
                             <div class="post-content">
                                 <p class="text-uppercase badge rounded-pill bg-warning text-dark text-capitalize">{{ posts.created_at|date}}</p>
                                 {{ items.location }}
+                                {{items.members.count}} member{{items.members.count|pluralize}}
                                 <p class="text-uppercase badge rounded-pill bg-info text-white text-capitalize">{{ posts.category }}</p>
                                 {% if request.user.profile.neighbourhood == items %}
                                 <a href="{% url 'leave-hood' items.id %}" class="btn btn-outline-danger btn-sm">Leave Hood</a>
